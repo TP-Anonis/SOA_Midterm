@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Đầu Bếp - Quản lý Đơn Hàng</title>
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/views/asset/css/bep.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light py-3">
+    <div class="container">
+        <a class="navbar-brand" href="./thucdon.html"><i class="fa-solid fa-utensils"></i> Vietnamese Restaurant</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/views/Trangchu.html">Trang chủ</a></li>
+                <!-- <li class="nav-item"><a class="nav-link" href="./thucdon.html">Thực đơn</a></li> -->
+                <li class="nav-item"><a class="nav-link" href="/views/asset/historyOrder.html">Lịch sử đơn hàng</a></li>
+                <li class="nav-item"><a class="nav-link" href="/views/asset/QuanlyDonHang.html">Quản lý</a></li>
+                <li class="nav-item"><a class="nav-link px-3" href="#">Đầu bếp</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+  <!-- Món ăn có sẵn -->
+  <div class="container mt-4">
+    <h4>Món ăn có sẵn</h4>
+    <ul id="menu-list" class="list-group">
+      <!-- Danh sách món ăn sẽ được cập nhật bằng JavaScript -->
+    </ul>
+  </div>
+
+  <!-- Đơn hàng đang chờ -->
+  <div class="container mt-4">
+    <h4>Đơn hàng đang chờ</h4>
+    <ul id="order-list" class="list-group">
+      <!-- Danh sách đơn hàng -->
+    </ul>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/views/asset/js/Daubep.js"></script>
+</body>
+</html>
