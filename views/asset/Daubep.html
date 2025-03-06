@@ -4,49 +4,138 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Đầu Bếp - Quản lý Đơn Hàng</title>
-  
+  <style>
+    .avatar-navbar {
+      width: 40px;
+      height: 40px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-right: 5px;
+      margin-left: 30px;
+      cursor: pointer;
+    }
+    .avatar-navbar:hover {
+      opacity: 0.8;
+    }
+    .menu-container, .order-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+    }
+    .card.menu-card {
+      width: 250px;
+      height: 150px;
+      text-align: center;
+    }
+    .card.order-card {
+      width: 250px;
+      min-height: 200px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      margin-top: 30px;
+    }
+    .search-container {
+      max-width: 500px;
+      margin: 20px auto;
+    }
+    .nav-tabs .nav-link {
+      font-weight: bold;
+      color: #007bff;
+    }
+    .nav-tabs .nav-link.active {
+      color: #ffffff;
+      background-color: #007bff;
+    }
+  </style>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="/views/asset/css/bep.css">
 </head>
 <body>
+  <!-- Kiểm tra đăng nhập -->
+  <script>
+    if (!localStorage.getItem("accessToken")) {
+      window.location.href = "DangNhap.html";
+    }
+  </script>
+
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light py-3">
     <div class="container">
-        <a class="navbar-brand" href="./thucdon.html"><i class="fa-solid fa-utensils"></i> Vietnamese Restaurant</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="/views/Trangchu.html">Trang chủ</a></li>
-                <!-- <li class="nav-item"><a class="nav-link" href="./thucdon.html">Thực đơn</a></li> -->
-                <li class="nav-item"><a class="nav-link" href="/views/asset/historyOrder.html">Lịch sử đơn hàng</a></li>
-                <li class="nav-item"><a class="nav-link" href="/views/asset/QuanlyDonHang.html">Quản lý</a></li>
-                <li class="nav-item"><a class="nav-link px-3" href="#">Đầu bếp</a></li>
-            </ul>
-        </div>
+      <a class="navbar-brand" href="../asset/Datban.html"><i class="fa-solid fa-utensils"></i> Vietnamese Restaurant</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="/views/asset/QuanlyDonHang.html">Quản lý</a></li>
+          <li class="nav-item"><a class="nav-link px-3" href="#">Đầu bếp</a></li>
+          <li class="nav-item d-flex align-items-center">
+            <a class="nav-link px-3" href="./Datban.html">Đặt Bàn</a>
+        </li>
+          <li class="nav-item d-flex align-items-center">
+            <img id="navbarAvatar" src="https://via.placeholder.com/40" alt="Avatar" class="avatar-navbar" onclick="document.getElementById('avatarInput').click()">
+            <input type="file" id="avatarInput" accept="image/*" style="display: none;" onchange="changeAvatar(event)">
+            <span id="employeeCode" class="nav-link px-2 fw-bold text-primary"></span>
+          </li>
+          <li class="nav-item">
+            <button class="btn btn-outline-danger ms-3" onclick="logout()">Đăng xuất</button>
+          </li>
+        </ul>
+      </div>
     </div>
-</nav>
+  </nav>
 
-  <!-- Món ăn có sẵn -->
-  <div class="container mt-4">
-    <h4>Món ăn có sẵn</h4>
-    <ul id="menu-list" class="list-group">
-      <!-- Danh sách món ăn sẽ được cập nhật bằng JavaScript -->
-    </ul>
-  </div>
+  <!-- Mục Đầu Bếp -->
+  <div class="container mt-5">
+    <h2 class="text-center mb-4">Quản Lý Đầu Bếp</h2>
 
-  <!-- Đơn hàng đang chờ -->
-  <div class="container mt-4">
-    <h4>Đơn hàng đang chờ</h4>
-    <ul id="order-list" class="list-group">
-      <!-- Danh sách đơn hàng -->
+    <!-- Thanh Tab -->
+    <ul class="nav nav-tabs" id="chefTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="menu-tab" data-bs-toggle="tab" data-bs-target="#menu" type="button" role="tab" aria-controls="menu" aria-selected="true">Món Ăn Có Sẵn</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="pending-tab" data-bs-toggle="tab" data-bs-target="#pending" type="button" role="tab" aria-controls="pending" aria-selected="false">Đơn Hàng Đang Chờ</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="completed-tab" data-bs-toggle="tab" data-bs-target="#completed" type="button" role="tab" aria-controls="completed" aria-selected="false">Đơn Hàng Đã Hoàn Thành</button>
+      </li>
     </ul>
+
+    <!-- Nội dung Tab -->
+    <div class="tab-content" id="chefTabsContent">
+      <!-- Món Ăn Có Sẵn -->
+      <div class="tab-pane fade show active" id="menu" role="tabpanel" aria-labelledby="menu-tab">
+        <div class="search-container">
+          <div class="input-group">
+            <input type="text" class="form-control" id="searchMenu" placeholder="Tìm kiếm món ăn..." onkeyup="searchMenu()">
+            <span class="input-group-text"><i class="fas fa-search"></i></span>
+          </div>
+        </div>
+        <div id="menu-list" class="menu-container mt-3">
+          <!-- Danh sách món ăn sẽ được cập nhật bằng JavaScript -->
+        </div>
+      </div>
+
+      <!-- Đơn Hàng Đang Chờ -->
+      <div class="tab-pane fade" id="pending" role="tabpanel" aria-labelledby="pending-tab">
+        <div id="order-list" class="order-container mt-3">
+          <!-- Danh sách đơn hàng -->
+        </div>
+      </div>
+
+      <!-- Đơn Hàng Đã Hoàn Thành -->
+      <div class="tab-pane fade" id="completed" role="tabpanel" aria-labelledby="completed-tab">
+        <div id="completed-order-list" class="order-container mt-3">
+          <!-- Danh sách đơn hàng đã hoàn thành -->
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/views/asset/js/Daubep.js"></script>
+  <script src="./js/Daubep.js"></script>
 </body>
 </html>

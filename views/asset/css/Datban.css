@@ -1,0 +1,93 @@
+.navbar {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  .navbar-brand:hover {
+    color: #ffc107 !important;
+  }
+  .card-img-top {
+    height: 150px;
+    object-fit: cover;
+  }
+  .card:hover {
+    transform: scale(1.02);
+    transition: transform 0.2s;
+  }
+  #cart-items {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  .order-history-icon {
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-left: 1rem;
+    color: #0d6efd;
+  }
+  .order-history-icon:hover {
+    color: #0056b3;
+  }
+  .avatar-navbar {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 5px;
+    margin-left: 30px;
+    cursor: pointer;
+  }
+  .avatar-navbar:hover {
+    opacity: 0.8;
+  }
+  .table-card {
+    width: 100%;
+    min-height: 150px;
+  }
+  .table-card .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 15px;
+  }
+  .table-card .card-title {
+    margin-bottom: 10px;
+  }
+  .table-card .btn-group {
+    display: flex;
+    gap: 5px;
+  }
+  .table-card .btn {
+    flex: 1;
+    padding: 6px 10px;
+    font-size: 0.9rem;
+  }
+  .btn-custom-payment {
+    background-color: #007bff;
+    color: white;
+  }
+  .btn-custom-payment:hover {
+    background-color: #0056b3;
+    color: white;
+  }
+  .btn-custom-edit {
+    background-color: #ffc107;
+    color: black;
+  }
+  .btn-custom-edit:hover {
+    background-color: #e0a800;
+    color: black;
+  }
+  .btn-custom-delete {
+    background-color: #dc3545;
+    color: white;
+  }
+  .btn-custom-delete:hover {
+    background-color: #b02a37;
+    color: white;
+  }
+  .btn-custom-order {
+    background-color: #28a745;
+    color: white;
+  }
+  .btn-custom-order:hover {
+    background-color: #218838;
+    color: white;
+  }

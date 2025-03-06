@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng nhập - Vietnamese Restaurant</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .login-card {
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .login-card .card-header {
+      background-color: #007bff;
+      color: white;
+      text-align: center;
+    }
+    .login-card .btn-primary {
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="card login-card">
+    <div class="card-header">
+      <h4>Đăng nhập</h4>
+    </div>
+    <div class="card-body p-4">
+      <form id="loginForm">
+        <div class="mb-3">
+          <label for="username" class="form-label">Tên đăng nhập</label>
+          <input type="text" class="form-control" id="username" placeholder="Nhập tên đăng nhập" required>
+        </div>
+        <div class="mb-3">
+          <label for="employeeCode" class="form-label">Mã nhân viên</label>
+          <input type="text" class="form-control" id="employeeCode" placeholder="Nhập mã nhân viên" required>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Mật khẩu</label>
+          <input type="password" class="form-control" id="password" placeholder="Nhập mật khẩu" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Đăng nhập</button>
+      </form>
+      <div class="text-center mt-3">
+        <a href="#" class="text-muted">Quên mật khẩu?</a>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.getElementById("loginForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const username = document.getElementById("username").value;
+      const employeeCode = document.getElementById("employeeCode").value;
+      const password = document.getElementById("password").value;
+
+      // Giả lập xác thực
+      if (username === "admin" && password === "123456" && employeeCode === "NV001") {
+        localStorage.setItem("accessToken", "fake-jwt-token");
+        localStorage.setItem("employeeCode", employeeCode); // Lưu mã nhân viên
+        localStorage.setItem("avatar", "https://via.placeholder.com/40"); // Avatar mặc định
+        window.location.href = "Datban.html";
+      } else {
+        alert("Tên đăng nhập, mã nhân viên hoặc mật khẩu không đúng!");
+      }
+    });
+  </script>
+</body>
+</html>
